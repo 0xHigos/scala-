@@ -1,9 +1,7 @@
-import java.util.ArrayDeque;
-import java.util.Deque;
-
 public class Test {
     public static void main(String[] args) {
         Solution2 s = new Solution2();
+        Solution2 solution2 = new Solution2();
         int maxScore = s.maxScore(new int[]{1, 2, 3, 4}, 2);
         System.out.println(maxScore);
     }

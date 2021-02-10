@@ -5,26 +5,30 @@ public class Test2 {
         Solution s = new Solution();
 
         // nums = [1,3,-1,-3,5,3,6,7]，以及 k = 3。
-        double[] doubles = s.medianSlidingWindow(new int[]{1, 4,2,3}, 4);
-        for (double aDouble : doubles) {
-            System.out.print(aDouble + "\t");
-        }
+        int result = s.subarraysWithKDistinct(new int[]{2,1,2,1,2},2);
+        System.out.println(result);
     }
 }
+
 class Solution {
-    public double[] medianSlidingWindow(int[] nums, int k) {
-        DualHeap dh = new DualHeap(k);
-        for (int i = 0; i < k; i++) {
-            dh.insert(nums[i]);
+    public int subarraysWithKDistinct(int[] A, int K) {
+        int res = 0;
+        for(int i = K; i < A.length; i++){
+            int left = 0,count = 0;
+            while(left + i <= A.length){
+                Set<Integer> set =new HashSet<>();
+                while(count != i){
+                    set.add(A[left + count]);
+                    count++;
+                }
+                if(set.size() == K)
+                    res++;
+                set = new HashSet<>();
+                count = 0;
+                left++;
+            }
         }
-        double[] ans = new double[nums.length - k + 1];
-        ans[0] = dh.getMedian();
-        for (int i = k; i < nums.length; i++) {
-            dh.insert(nums[i]);
-            dh.erase(nums[i - k]);
-            ans[i - k + 1] = dh.getMedian();
-        }
-        return ans;
+        return res;
     }
 }
 
